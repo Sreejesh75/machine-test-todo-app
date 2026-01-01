@@ -171,7 +171,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
     );
   }
 
-  // ---------------------------- DECORATIONS ----------------------------
+
 
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
@@ -202,7 +202,6 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
     );
   }
 
-  // ---------------------------- PICKERS ----------------------------
 
   pickDate() async {
     final picked = await showDatePicker(
@@ -225,7 +224,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
     }
   }
 
-  // ---------------------------- SAVE UPDATED TASK ----------------------------
+ 
 
   void saveTask() {
     if (titleController.text.isEmpty || dueDate == null || dueTime == null) {

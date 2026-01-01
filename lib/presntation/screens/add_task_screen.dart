@@ -164,7 +164,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     );
   }
 
-  // ---------------------------- WIDGET HELPERS ----------------------------
+
 
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
@@ -195,7 +195,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     );
   }
 
-  // ---------------------------- DATE & TIME PICKERS ----------------------------
 
   pickDate() async {
     final picked = await showDatePicker(
@@ -219,7 +218,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     }
   }
 
-  // ---------------------------- SAVE TASK ----------------------------
 
   Future<void> saveTask() async {
     if (titleController.text.isEmpty || dueDate == null || dueTime == null) {
@@ -247,16 +245,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       reminderTime: null,
     );
     
-  //   // 🔔 CALL NOTIFICATION HERE  
-  // await NotificationService.scheduleNotification(
-  //   id: DateTime.now().millisecondsSinceEpoch % 100000,
-  //   title: task.title,
-  //   body: task.description.isEmpty
-  //       ? "Task is due soon!"
-  //       : task.description,
-  //   date: finalDue,
-  // );
-
+  
 
     context.read<TaskBloc>().add(AddTaskEvent(task));
 

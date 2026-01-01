@@ -25,14 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    // Get and print FCM Token
     FirebaseMessaging.instance.getToken().then((token) {
       debugPrint("========================================");
       debugPrint("FCM Token: $token");
       debugPrint("========================================");
     });
 
-    // Receive message when app is open
     FirebaseMessaging.onMessage.listen((message) {
       final title = message.notification?.title ?? "No Title";
       final body = message.notification?.body ?? "No Body";
@@ -42,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ).showSnackBar(SnackBar(content: Text("🔔 $title — $body")));
     });
 
-    // When app opened from notification
+    
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       debugPrint("🔔 App opened from notification");
     });

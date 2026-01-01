@@ -11,7 +11,7 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   Future<void> initialize() async {
-    // Initialize timezone
+    
     tz.initializeTimeZones();
 
     const androidSettings = AndroidInitializationSettings(
@@ -31,12 +31,12 @@ class NotificationService {
     await _notifications.initialize(
       initSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
-        // Handle notification tap
+        
         print('Notification tapped: ${response.payload}');
       },
     );
 
-    // Request permissions for Android 13+
+    
     await _requestPermissions();
   }
 
@@ -49,17 +49,16 @@ class NotificationService {
     await androidPlugin?.requestNotificationsPermission();
   }
 
-  /// Schedule a notification for a specific task
+  
   Future<void> scheduleTaskNotification({
     required String id,
     required String title,
     required String description,
     required DateTime scheduledDate,
   }) async {
-    // Cancel any existing notification for this task
+  
     await cancelNotification(id);
 
-    // Don't schedule if the date is in the past
     if (scheduledDate.isBefore(DateTime.now())) {
       return;
     }
@@ -85,7 +84,7 @@ class NotificationService {
     );
 
     await _notifications.zonedSchedule(
-      id.hashCode, // Use task ID hash as notification ID
+      id.hashCode, 
       '⏰ Task Reminder: $title',
       description.isEmpty ? 'Your task is due!' : description,
       tz.TZDateTime.from(scheduledDate, tz.local),
@@ -99,7 +98,7 @@ class NotificationService {
     print('✅ Scheduled notification for task: $title at $scheduledDate');
   }
 
-  /// Schedule a reminder notification before the due date
+  
   Future<void> scheduleTaskReminder({
     required String id,
     required String title,
@@ -109,7 +108,6 @@ class NotificationService {
   }) async {
     final reminderTime = dueDate.subtract(reminderBefore);
 
-    // Don't schedule if the reminder time is in the past
     if (reminderTime.isBefore(DateTime.now())) {
       return;
     }
@@ -122,18 +120,17 @@ class NotificationService {
     );
   }
 
-  /// Cancel a specific notification
   Future<void> cancelNotification(String taskId) async {
     await _notifications.cancel(taskId.hashCode);
     await _notifications.cancel('${taskId}_reminder'.hashCode);
   }
 
-  /// Cancel all notifications
+ 
   Future<void> cancelAllNotifications() async {
     await _notifications.cancelAll();
   }
 
-  /// Show an immediate notification
+
   Future<void> showNotification({
     required String title,
     required String body,
